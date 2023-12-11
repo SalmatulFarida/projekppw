@@ -1,6 +1,25 @@
+# generate_label.py
+import joblib
+
+def get_label(news_text):
+    try:
+        # Pastikan path file model benar
+        model_path = 'model/svm_model'
+        model = joblib.load(model_path)
+        # ...
+        # Proses klasifikasi dan pengembalian label
+        # ...
+        return label
+    except FileNotFoundError as e:
+        # Tangani kesalahan file tidak ditemukan
+        print(f"Error: {e}")
+        return None
+    except Exception as e:
+        # Tangani kesalahan umum
+        print(f"Error: {e}")
+        return None
 # main.py
 import streamlit as st
-import time
 from generate_label import get_label
 
 def main():
@@ -21,24 +40,27 @@ def main():
 
     if st.button("Cari Kategori"):
         if news_text:
+            result_placeholder = st.empty()  # Placeholder untuk hasil klasifikasi
             text = get_label(news_text)
             with st.expander('Tampilkan Hasil'):
-                st.write(f'Berita yang Anda masukkan termasuk dalam kategori: {text}')
-                url = ""
+                if text:
+                    result_placeholder.write(f'Berita yang Anda masukkan termasuk dalam kategori: {text}')
+                    url = ""
 
-                if text == "hukum":
-                    st.info(text, icon="🧑‍🏫")
-                    url = "https://www.antaranews.com/search?q=hukum+hari+ini"
-                elif text == "hiburan":
-                    st.info(text, icon="🚣")
-                    url = "https://www.antaranews.com/search?q=hiburan+hari+ini"
-                elif text == "lifestyle":
-                    st.info(text, icon="💸")
-                    url = "https://www.antaranews.com/search?q=lifestyle+hari+ini"
+                    if text == "hukum":
+                        st.info(text, icon="🧑‍🏫")
+                        url = "https://www.antaranews.com/search?q=hukum+hari+ini"
+                    elif text == "hiburan":
+                        st.info(text, icon="🚣")
+                        url = "https://www.antaranews.com/search?q=hiburan+hari+ini"
+                    elif text == "lifestyle":
+                        st.info(text, icon="💸")
+                        url = "https://www.antaranews.com/search?q=lifestyle+hari+ini"
 
-                st.write(f'Baca juga berita terbaru terkait {text} 🔎 [Berita {text} hari ini]({url})')
+                    st.write(f'Baca juga berita terbaru terkait {text} 🔎 [Berita {text} hari ini]({url})')
+                else:
+                    st.warning('Klasifikasi tidak berhasil. Silakan coba lagi atau periksa teks berita Anda.')
         else:
-            time.sleep(0.5)
             st.warning('Masukkan teks terlebih dahulu')
 
 if __name__ == "__main__":
