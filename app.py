@@ -7,7 +7,7 @@ from generate_label import get_label
 def main():
 
     st.set_page_config(
-        page_title="Aplikasi Kategori Berita | Klasifikasi Berita CNN Indonesia", page_icon="📺")
+        page_title="Aplikasi Kategori Berita | Klasifikasi Berita AntaraNews", page_icon="📺")
 
     col1, col2 = st.columns(2)
 
@@ -16,9 +16,8 @@ def main():
         st.image("assets/banner.png", use_column_width=True)
 
     with col2:
-        st.subheader("News Classification: Aplikasi Kategori untuk Berita")
-        st.caption("Berita umumnya dikategorikan menjadi beberapa jenis kategori seperti olahraga, ekonomi, hiburan dan kategori lainnya. Dengan news classification ini kita dapat menemukan jenis kategori berita yang sesuai dengan isi berita tersebut.")
-
+        st.subheader("News Classification: Aplikasi Kategori Berita Online (AntaraNews)")
+        st.caption("Berita online akan dikategorikan menjadi beberapa kategori seperti, hukum, hiburan, lifestyle. Dengan melakukan klasifikasi pada berita, kita dapat mengetahui kategori berita online yang sesuai.")
     news_text = st.text_area(
         "Masukkan Isi Berita", key="input_text", height=250)
 
@@ -27,26 +26,21 @@ def main():
             text = get_label(news_text)
             with st.expander('Tampilkan Hasil'):
                 st.write('Berita yang anda masukkan termasuk dalam kategori: ')
-                if text == "edukasi":
+                if text == "hukum":
                     st.info(text, icon="🧑‍🏫")
-                    url = "https://www.google.com/search?q=berita+edukasi+hari+ini"
+                    url = "https://www.antaranews.com/search?q=hukum+hari+ini"
                     st.write(
-                        'Baca juga berita terbaru terkait edukasi 🔎 [Berita edukasi hari ini](%s)'  %url)
-                elif text == "olahraga":
-                    st.info(text, icon="🚣")
-                    url = "https://www.google.com/search?q=berita+olahraga+hari+ini"
-                    st.write(
-                        'Baca juga berita terbaru terkait olahraga 🔎 [Berita olahraga hari ini](%s)'  %url)
-                elif text == "ekonomi":
-                    st.info(text, icon="💸")
-                    url = "https://www.google.com/search?q=berita+ekonomi+hari+ini"
-                    st.write(
-                        'Baca juga berita terbaru terkait ekonomi 🔎 [Berita ekonomi hari ini](%s)'  %url)
+                        'Baca juga berita terbaru terkait hukum 🔎 [Berita hukum hari ini](%s)'  %url)
                 elif text == "hiburan":
-                    st.info(text, icon="🎥")
-                    url = "https://www.google.com/search?q=berita+hiburan+hari+ini"
+                    st.info(text, icon="🚣")
+                    url = "https://www.antaranews.com/search?q=hiburan+hari+ini"
                     st.write(
                         'Baca juga berita terbaru terkait hiburan 🔎 [Berita hiburan hari ini](%s)'  %url)
+                elif text == "lifestyle":
+                    st.info(text, icon="💸")
+                    url = "https://www.antaranews.com/search?q=lifestyle+hari+ini"
+                    st.write(
+                        'Baca juga berita terbaru terkait lifestyle 🔎 [Berita lifestyle hari ini](%s)'  %url)
         else:
             time.sleep(.5)
             st.toast('Masukkan teks terlebih dahulu', icon='🤧')
