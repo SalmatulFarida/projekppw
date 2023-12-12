@@ -13,7 +13,7 @@ def main():
 
     with col1:
 
-        st.image("assets/banner.png", use_column_width=True)
+        st.image("assets/antara.png", use_column_width=True)
 
     with col2:
         st.subheader("News Classification: Aplikasi Kategori Berita Online (AntaraNews)")
